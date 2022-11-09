@@ -40,3 +40,8 @@ I haven't tried to modify the input of other style blocks, but we could expect t
 
 ![image](https://github.com/Yukino1010/Style_GAN/blob/master/results/demo/final_image1.png)
 ![image](https://github.com/Yukino1010/Style_GAN/blob/master/results/demo/final_image2.png)
+
+# Reference
+1. ***Generative Adversarial Networks*** [[arxiv](https://arxiv.org/abs/1406.2661)]
+2. ***A Style-Based Generator Architecture for Generative Adversarial Networks*** [[arxiv](https://arxiv.org/abs/1812.04948)]
+3. ***Face image generation with StyleGAN*** (https://keras.io/examples/generative/stylegan/)
