@@ -16,24 +16,19 @@ To solve the problem of less control over the style of the classic gan, we have 
 
 The above was the explanation from the original paper, let's try to explain it in normal English. <br>
 
-In the case that we want to control two factors (eyes and face size), we assume that we only need to modify a single element of the latent vector to control both eye and face size at the same time. (entanglement) <br>
+When we want to control a specific feature of an image, such as the hair length of a male, we often assume that this can be achieved by adjusting a single component of the latent vector. 
+However, there is no guarantee that each latent component controls only a single feature due to "entanglement". <br>
 
-By controlling (increase or decrease) the value of the element, we could get four kinds of different combinations [small eyes, small face], [small eyes, big face], [big eyes,  small face] and [big eyes, big face]. However, the combination [small eyes, big face] and [big eyes,  small face] are rare or do not exist in real-world situations. As a result, the generator will try to generate images that are unrealistic. <br>
+For instance, if a component affects both hair length and gender, modifying it could lead to an unexpected result, such as a female with long hair. To address this issue, it's necessary to ensure that each component exclusively manages a single feature, a process known as disentangling. <br>
 
-With the mapping net of the latent vector (z), we can now expect the FC layer could transfer the original vector z into w which has disentangled spaces (simply means each element of vector w only control a single style)
+In StyleGAN, we can easily disentangle the latent space by introducing a mapping network composed mainly of fully connected (FC) layers !
 
 ## Synthesis network
 
-Synthesis network is another important change in style gan. Unlike the classic gan using latent vectors z as the sources to generate images, style gan uses the z to change the style of the image. <br>
+StyleGAN introduces a unique feature in its synthesis network. Unlike traditional GANs that use latent vectors directly to generate images, StyleGAN uses these vectors to adjust the style of the image.
+The latent vector w in StyleGAN is applied across all layers. This means that w is mainly used for style changes at each layer. The starting point of the network is a fixed constant, which is different from classic GANs. <br>
 
-***Classic GAN***: 
-
-The image is generated from the latent vectors z. By upsampling the vectors z, we could get the image with a shape (64, 64, 3). In this case, z could be seen as the source of the generator. 
-
-***Style GAN***:
-
-Different to the classic gan, the latent vector w of the Style GAN is applied to all the layers. This could be seen as vector w is only used for the style transfer in each layer. Besides, the starting point of the network will be a constant value. (the starting point of the classic gan is latent vectors z)
-
+Moreover, since image generation in StyleGAN begins with a fixed constant, to ensure diversity in the outcomes, StyleGAN adds noise to every style block, introducing randomness into the model.
 # Result
 By controlling the input of the last style block, we can control the hair color of the image. <br>
 I haven't tried to modify the input of other style blocks, but we could expect that each style block will control certain style!
